@@ -1,3 +1,4 @@
+const API_URL = import.meta.env.VITE_API_URL || \;
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { AuthContext } from '../context/AuthContext';
@@ -29,7 +30,7 @@ export default function TeacherDashboard() {
 
   const fetchStats = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/dashboard/teacher', {
+      const res = await axios.get(\, {
         headers: { Authorization: `Bearer ${user.token}` }
       });
       setStats(res.data.data);
@@ -40,7 +41,7 @@ export default function TeacherDashboard() {
 
   const fetchAttempts = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/quizzes/attempts/teacher', {
+      const res = await axios.get(\, {
         headers: { Authorization: `Bearer ${user.token}` }
       });
       setAttempts(res.data.data);
@@ -58,7 +59,7 @@ export default function TeacherDashboard() {
     formData.append('file', noteFile);
 
     try {
-      await axios.post('http://localhost:5000/api/notes', formData, {
+      await axios.post(\, formData, {
         headers: { Authorization: `Bearer ${user.token}`, 'Content-Type': 'multipart/form-data' }
       });
       alert('Note uploaded successfully');
@@ -76,7 +77,7 @@ export default function TeacherDashboard() {
   const handleCreateQuiz = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/api/quizzes', {
+      await axios.post(\, {
         title: quizTitle,
         subject: quizSubject,
         questions
@@ -94,7 +95,7 @@ export default function TeacherDashboard() {
   const handlePostAnnouncement = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/api/announcements', {
+      await axios.post(\, {
         title: annTitle,
         message: annMessage
       }, {

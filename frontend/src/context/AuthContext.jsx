@@ -1,3 +1,4 @@
+const API_URL = import.meta.env.VITE_API_URL || \;
 import React, { createContext, useState, useEffect } from 'react';
 import axios from 'axios';
 
@@ -16,7 +17,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = async (email, password) => {
-    const { data } = await axios.post('http://localhost:5000/api/auth/login', { email, password });
+    const { data } = await axios.post(\, { email, password });
     if (data.success) {
       setUser(data);
       localStorage.setItem('userInfo', JSON.stringify(data));
@@ -25,7 +26,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const register = async (name, email, password, role) => {
-    const { data } = await axios.post('http://localhost:5000/api/auth/register', { name, email, password, role });
+    const { data } = await axios.post(\, { name, email, password, role });
     if (data.success) {
       setUser(data);
       localStorage.setItem('userInfo', JSON.stringify(data));

@@ -1,3 +1,4 @@
+const API_URL = import.meta.env.VITE_API_URL || \;
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { AuthContext } from '../context/AuthContext';
@@ -28,14 +29,14 @@ export default function StudentDashboard() {
 
   const fetchStats = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/dashboard/student', { headers: { Authorization: `Bearer ${user.token}` } });
+      const res = await axios.get(\, { headers: { Authorization: `Bearer ${user.token}` } });
       setStats(res.data.data);
     } catch (err) { console.error(err); }
   };
 
   const fetchNotes = async () => {
     try {
-      let url = 'http://localhost:5000/api/notes';
+      let url = \;
       if (subjectFilter) url += `?subject=${subjectFilter}`;
       const res = await axios.get(url, { headers: { Authorization: `Bearer ${user.token}` } });
       setNotes(res.data.data);
@@ -44,28 +45,28 @@ export default function StudentDashboard() {
 
   const fetchQuizzes = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/quizzes', { headers: { Authorization: `Bearer ${user.token}` } });
+      const res = await axios.get(\, { headers: { Authorization: `Bearer ${user.token}` } });
       setQuizzes(res.data.data);
     } catch (err) { console.error(err); }
   };
 
   const fetchAnnouncements = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/announcements', { headers: { Authorization: `Bearer ${user.token}` } });
+      const res = await axios.get(\, { headers: { Authorization: `Bearer ${user.token}` } });
       setAnnouncements(res.data.data);
     } catch (err) { console.error(err); }
   };
 
   const fetchAttempts = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/quizzes/attempts/student', { headers: { Authorization: `Bearer ${user.token}` } });
+      const res = await axios.get(\, { headers: { Authorization: `Bearer ${user.token}` } });
       setAttempts(res.data.data);
     } catch (err) { console.error(err); }
   };
 
   const startQuiz = async (id) => {
     try {
-      const res = await axios.get(`http://localhost:5000/api/quizzes/${id}`, { headers: { Authorization: `Bearer ${user.token}` } });
+      const res = await axios.get(`\/api/quizzes/${id}`, { headers: { Authorization: `Bearer ${user.token}` } });
       setActiveQuiz(res.data.data);
       setAnswers({});
     } catch (err) { console.error(err); }
@@ -74,7 +75,7 @@ export default function StudentDashboard() {
   const submitQuiz = async () => {
     const formattedAnswers = Object.keys(answers).map(qId => ({ questionId: qId, selectedOption: answers[qId] }));
     try {
-      await axios.post(`http://localhost:5000/api/quizzes/${activeQuiz._id}/attempt`, { answers: formattedAnswers }, { headers: { Authorization: `Bearer ${user.token}` } });
+      await axios.post(`\/api/quizzes/${activeQuiz._id}/attempt`, { answers: formattedAnswers }, { headers: { Authorization: `Bearer ${user.token}` } });
       alert('Quiz submitted successfully!');
       setActiveQuiz(null);
       fetchStats();
