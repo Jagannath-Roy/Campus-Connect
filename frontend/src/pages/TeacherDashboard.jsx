@@ -30,7 +30,7 @@ export default function TeacherDashboard() {
 
   const fetchStats = async () => {
     try {
-      const res = await axios.get(\, {
+      const res = await axios.get(`${API_URL}/api/dashboard/teacher`, {
         headers: { Authorization: `Bearer ${user.token}` }
       });
       setStats(res.data.data);
@@ -41,7 +41,7 @@ export default function TeacherDashboard() {
 
   const fetchAttempts = async () => {
     try {
-      const res = await axios.get(\, {
+      const res = await axios.get(`${API_URL}/api/quizzes/attempts/teacher`, {
         headers: { Authorization: `Bearer ${user.token}` }
       });
       setAttempts(res.data.data);
@@ -59,7 +59,7 @@ export default function TeacherDashboard() {
     formData.append('file', noteFile);
 
     try {
-      await axios.post(\, formData, {
+      await axios.post(`${API_URL}/api/notes`, formData, {
         headers: { Authorization: `Bearer ${user.token}`, 'Content-Type': 'multipart/form-data' }
       });
       alert('Note uploaded successfully');
@@ -77,7 +77,7 @@ export default function TeacherDashboard() {
   const handleCreateQuiz = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(\, {
+      await axios.post(`${API_URL}/api/quizzes`, {
         title: quizTitle,
         subject: quizSubject,
         questions
@@ -95,7 +95,7 @@ export default function TeacherDashboard() {
   const handlePostAnnouncement = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(\, {
+      await axios.post(`${API_URL}/api/announcements`, {
         title: annTitle,
         message: annMessage
       }, {
