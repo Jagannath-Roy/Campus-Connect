@@ -5,6 +5,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import TeacherDashboard from './pages/TeacherDashboard';
 import StudentDashboard from './pages/StudentDashboard';
+import LandingPage from './pages/LandingPage';
 
 const PrivateRoute = ({ children, roleRequired }) => {
   const { user, loading } = useContext(AuthContext);
@@ -30,8 +31,8 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/login" element={!user ? <Login /> : <Navigate to="/" />} />
-        <Route path="/register" element={!user ? <Register /> : <Navigate to="/" />} />
+        <Route path="/login" element={!user ? <Login /> : <Navigate to={user.role === 'Teacher' ? "/teacher" : "/student"} />} />
+        <Route path="/register" element={!user ? <Register /> : <Navigate to={user.role === 'Teacher' ? "/teacher" : "/student"} />} />
         
         <Route path="/teacher/*" element={
           <PrivateRoute roleRequired="Teacher">
@@ -45,13 +46,7 @@ function App() {
           </PrivateRoute>
         } />
         
-        <Route path="/" element={
-          user ? (
-            <Navigate to={user.role === 'Teacher' ? "/teacher" : "/student"} />
-          ) : (
-            <Navigate to="/login" />
-          )
-        } />
+        <Route path="/" element={<LandingPage />} />
       </Routes>
     </Router>
   );
